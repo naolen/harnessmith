@@ -83,6 +83,9 @@ npx harnessmith uninstall --agent codex
 # Inspect machine-readable Adapter boundaries
 npx harnessmith capabilities --json
 
+# Generate paste-ready Cursor User Rules text (does not write Cursor app state)
+npx harnessmith export cursor-user-rules
+
 # Check cross-repository relationships in your personal Repository Map
 node <harness-path>/bin/harness.mjs repository-map check --json
 

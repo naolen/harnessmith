@@ -147,6 +147,7 @@ export interface CliOptions {
   yes?: boolean;
   dryRun?: boolean;
   initGlobal?: boolean;
+  out?: string;
 }
 
 export interface RunContext {

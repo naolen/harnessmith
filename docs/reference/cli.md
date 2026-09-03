@@ -15,6 +15,7 @@ owner: maintainers
 | `restore` | 恢复上一安装层 | 是 |
 | `uninstall` | 恢复全部安装层并移除记录 | 是 |
 | `capabilities` | 输出 Adapter 范围、激活和权限边界 | 否 |
+| `export cursor-user-rules` | 生成待粘贴的 Cursor User Rules 文本 | 默认否；`--out` 写入用户指定文件 |
 
 ## 通用选项
 
@@ -30,6 +31,9 @@ owner: maintainers
 | `-v, --version` | 输出版本 |
 | `-h, --help` | 输出帮助 |
 
+`export cursor-user-rules` 额外支持 `--out <file>`：将生成文本写入用户指定路径。目标已存在时拒绝写入，需
+`--force` 才覆盖；该文件不是受管理分发物，不做自动备份。默认只打印到 stdout，零文件写入。
+
 `--yes` 只关闭交互，并在未指定宿主时选择 Codex；它不会自动接受文件冲突。`--force` 会接管 unmanaged 或已修改文件，
 使用前必须先审阅 dry-run/status 和备份目标。
 
@@ -44,6 +48,11 @@ npx harnessmith --dry-run --agent codex,opencode,kimi-code
 
 # Cursor 项目安装
 npx harnessmith install --agent cursor --project /path/to/project
+
+# 生成待粘贴的 Cursor User Rules（默认 stdout）
+npx harnessmith export cursor-user-rules
+npx harnessmith export cursor-user-rules --json
+npx harnessmith export cursor-user-rules --out ./cursor-user-rules.txt
 
 # 自动化检查
 npx harnessmith status --agent codex --json

@@ -38,6 +38,13 @@ use the published `npx --yes harnessmith` commands below.
   - Harness: `<project>/.cursor/agent-harness`
   - Cursor installation is project-scoped. Resolve `--project` to the intended repository; Harnessmith
     automatically uses its Git root when possible.
+  - Cursor User Rules (app Customize → Rules) have no documented on-disk path. Do not claim Harnessmith can
+    install or sync into Cursor global app state. You may suggest the user run
+    `npx --yes harnessmith export cursor-user-rules` and paste the stdout text themselves; never paste on
+    their behalf, and never claim the rules are already active after printing them.
+  - Cursor Remote Rules (GitHub import) only land under project-scoped
+    `.cursor/rules/imported/<repoName>/` as `.mdc` files and do not include the embedded Runtime; treat them
+    as a supplementary path, not a substitute for `export cursor-user-rules`.
 - `opencode`
   - Instructions: `$OPENCODE_CONFIG_DIR/AGENTS.md` when set
   - Default instructions: `${XDG_CONFIG_HOME:-~/.config}/opencode/AGENTS.md`

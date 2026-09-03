@@ -5,7 +5,13 @@ import { Command, Option } from 'commander';
 import { collectAgents } from './agents.js';
 import type { CliOptions } from './types.js';
 
-export type HarnessmithCommand = 'install' | 'status' | 'restore' | 'uninstall' | 'capabilities';
+export type HarnessmithCommand =
+  | 'install'
+  | 'status'
+  | 'restore'
+  | 'uninstall'
+  | 'capabilities'
+  | 'export-cursor-user-rules';
 export type CommandExecutor = (
   command: HarnessmithCommand,
   options: CliOptions,
@@ -60,6 +66,19 @@ export function createProgram(
     .command('capabilities')
     .description('report adapter scope, activation, ownership, and permission boundaries');
   capabilities.action(() => execute('capabilities', capabilities.optsWithGlobals<CliOptions>()));
+
+  const exportCommand = program
+    .command('export')
+    .description('generate paste-ready host guidance without writing managed installations');
+  const cursorUserRules = exportCommand
+    .command('cursor-user-rules')
+    .description(
+      'print paste-ready Cursor User Rules text; optional --out writes a user-owned file',
+    )
+    .option('--out <file>', 'write the generated text to a user-specified path');
+  cursorUserRules.action(() =>
+    execute('export-cursor-user-rules', cursorUserRules.optsWithGlobals<CliOptions>()),
+  );
 
   for (const [name, description] of [
     ['status', 'inspect installation ownership and integrity'],

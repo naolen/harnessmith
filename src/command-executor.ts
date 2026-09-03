@@ -1,6 +1,7 @@
 import type { Readable, Writable } from 'node:stream';
 import { adapterCapabilities, createAdapter } from './adapters.js';
 import { normalizeAgents } from './agents.js';
+import { executeExportCursorUserRules } from './export-cursor-user-rules.js';
 import { installAll } from './install.js';
 import { restoreAll, statusAll, uninstallAll } from './lifecycle.js';
 import { describeLifecycle } from './lifecycle-plan.js';
@@ -201,6 +202,9 @@ export async function executeCommand(
   options: CliOptions,
   context: ExecuteContext,
 ): Promise<number> {
+  if (command === 'export-cursor-user-rules') {
+    return executeExportCursorUserRules(options, context);
+  }
   const interactive =
     !options.yes && isTty(context.input) && isTty(context.output) && !options.json;
   if (interactive) startInteractive(context.output);

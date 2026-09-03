@@ -38,6 +38,28 @@ Cursor 只把 Harnessmith 自己管理的文件写入 repository-local Git exclu
 旧 Python `kimi-cli` 使用的 `~/.kimi/` 目录。DeepSeek Adapter 面向官方 `dsh` / `@deepseek-ai/dsh`，只托管用户全局
 `$DSH_HOME/AGENTS.md`；项目根/嵌套候选、权限与 sandbox 仍由宿主负责。
 
+### Cursor 全局 User Rules
+
+Cursor 的应用内 User Rules（Customize → Rules）是唯一全局入口，但没有文档化的磁盘路径，第三方无法安全接管。因此
+Harnessmith **不**提供 Cursor 全局 Adapter，也不直写应用内部状态。
+
+跨宿主用户可以生成一段待手动粘贴的短文本：
+
+```bash
+npx harnessmith export cursor-user-rules
+```
+
+能力边界：
+
+| 状态 | 含义 |
+| --- | --- |
+| 已实现（Implemented） | 生成待粘贴文本；`--out` 写入用户指定文件（已存在则 fail-closed，需 `--force`） |
+| 由用户/宿主负责（Delegated to the user/host） | 实际粘贴动作，以及 Cursor 是否遵循该全局规则 |
+| 不支持（Unsupported） | 管理/更新已粘贴的 User Rules；Cursor 全局 Runtime 安装 |
+
+措辞保持“生成待粘贴文本”，不要说成“安装/同步到 Cursor 全局”。Cursor Remote Rules（GitHub 导入）只能落到项目级
+`.cursor/rules/imported/<repoName>/`，且只拉 `.mdc`、不含内嵌 Runtime，仅可作补充路径，不能替代本导出命令。
+
 DeepSeek 兼容性**仅针对已验证 revision** 声明：`@deepseek-ai/dsh@0.1.1-rc.2`、
 `@deepseek-ai/dsh-agent-instructions@0.1.1-rc.2`、上游 tag `dsh-v0.1.1-rc.2`（commit
 `b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`）。developer preview 下其他版本在重新验证前不视为已支持。完整边界见

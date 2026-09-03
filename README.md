@@ -80,6 +80,9 @@ npx harnessmith uninstall --agent codex
 # 查看 Adapter 的机器可读边界
 npx harnessmith capabilities --json
 
+# 生成待粘贴的 Cursor User Rules（不直写 Cursor 应用内部状态）
+npx harnessmith export cursor-user-rules
+
 # 检查个人 Repository Map 中的跨仓库关系
 node <harness-path>/bin/harness.mjs repository-map check --json
 
