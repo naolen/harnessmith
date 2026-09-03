@@ -90,7 +90,7 @@ function previewLifecycle(
 }
 
 function executeLifecycle(
-  command: Exclude<HarnessmithCommand, 'install' | 'capabilities'>,
+  command: Exclude<HarnessmithCommand, 'install' | 'capabilities' | 'export-cursor-user-rules'>,
   adapters: Adapter[],
   options: CliOptions,
   context: ExecuteContext,
