@@ -58,12 +58,18 @@ You can also ask a coding agent to read the installation protocol first:
 | OpenCode | global | `opencode` |
 | Kimi Code CLI | global | `kimi` (alias: `kimi-code`) |
 | DeepSeek Harness | global | `deepseek` (aliases: `dsh`, `deepseek-harness`) |
+| WorkBuddy | global | `workbuddy` (aliases: `codebuddy`, `codebuddy-code`) |
 
 DeepSeek Adapter installs **only** the user-global `$DSH_HOME/AGENTS.md` (default `~/.dsh/AGENTS.md`).
 Project-root / nested instructions and permissions, sandbox, and approval remain host-owned; a
 successful install does not mean the full DSH scope chain or formal Host Eval is verified. Compatibility
 is currently claimed only for `@deepseek-ai/dsh@0.1.1-rc.2` / tag `dsh-v0.1.1-rc.2`; other revisions
 require re-validation.
+
+WorkBuddy Adapter installs **only** the user-global `$CODEBUDDY_CONFIG_DIR/CODEBUDDY.md` (default
+`~/.codebuddy/CODEBUDDY.md`). It targets the Tencent WorkBuddy / CodeBuddy engine user-memory
+entry; project `.codebuddy/`, `settings.json`, MCP, permissions, and sandbox remain host-owned. When
+WorkBuddy coexists with CodeBuddy CLI, set `CODEBUDDY_CONFIG_DIR` before installing.
 
 Cursor requires `--project /path/to/project`. See the
 [host guide](https://alexpang.cn/harnessmith/guide/hosts) for destinations, aliases, and support evidence.

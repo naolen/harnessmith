@@ -31,6 +31,7 @@ function fixture(prefix: string) {
     OPENCODE_CONFIG_DIR: join(root, 'opencode'),
     KIMI_CODE_HOME: join(root, 'kimi'),
     DSH_HOME: join(root, 'dsh'),
+    CODEBUDDY_CONFIG_DIR: join(root, 'codebuddy'),
     HARNESS_MEMORY_HOME: join(root, 'memory'),
     HARNESS_PERSONAL_HOME: join(root, 'personal'),
     HARNESS_REPOSITORY_ROOT: join(root, 'repositories'),

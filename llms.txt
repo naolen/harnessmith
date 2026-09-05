@@ -1,7 +1,7 @@
 # Harnessmith
 
 > Harnessmith is a cross-host Personal Harness distribution and work-state control plane for Codex, Cursor,
-> Claude Code, OpenCode, Kimi Code CLI, and DeepSeek Harness.
+> Claude Code, OpenCode, Kimi Code CLI, DeepSeek Harness, and WorkBuddy.
 > This file is an operational guide for an LLM helping a user install or initialize it.
 
 Project: https://www.npmjs.com/package/harnessmith
@@ -62,12 +62,26 @@ use the published `npx --yes harnessmith` commands below.
     patches; `settings.yaml`; credentials; permissions, sandbox, tool allowlists, and approval
   - Do not tell the user that installing the file enforces DSH security controls or verifies a real
     Session baseline; file presence is not Host Eval evidence
+- `workbuddy` (aliases: `codebuddy`, `codebuddy-code`)
+  - Official coordinates: Tencent WorkBuddy / CodeBuddy Code (`@tencent-ai/codebuddy-code`, executable
+    `codebuddy`); WorkBuddy shares the CodeBuddy engine
+  - Instructions: `$CODEBUDDY_CONFIG_DIR/CODEBUDDY.md` when set to a non-empty value; otherwise
+    `~/.codebuddy/CODEBUDDY.md`
+  - Harness: `agent-harness` under the same effective CodeBuddy config directory
+  - Write `CODEBUDDY.md` only. The host ignores root `AGENTS.md` when `CODEBUDDY.md` exists
+  - Out of scope: project `.codebuddy/`, `CODEBUDDY.local.md`, `rules/`, `settings.json`, MCP,
+    credentials, permissions, sandbox, tool allowlists, and approval
+  - When WorkBuddy and CodeBuddy CLI coexist, set `CODEBUDDY_CONFIG_DIR` before install so they do not
+    share `~/.codebuddy`
+  - Do not tell the user that installing the file enforces WorkBuddy/CodeBuddy security controls or
+    verifies a real Host Eval; file presence is not Host Eval evidence
 
 ## LLM installation protocol
 
 1. Verify the runtime with `node --version`. Stop and explain the requirement if Node.js is older than 24.12.
 2. Determine the exact agent selection from the user's request. Accepted values are `codex`, `cursor`,
-   `claude`, `claude-code`, `opencode`, `kimi`, `kimi-code`, `deepseek`, `dsh`, `deepseek-harness`, and
+   `claude`, `claude-code`, `opencode`, `kimi`, `kimi-code`, `deepseek`, `dsh`, `deepseek-harness`,
+   `workbuddy`, `codebuddy`, `codebuddy-code`, and
    `all`. Never infer `all` from an ambiguous request.
 3. If Cursor is selected, determine the intended project path. Ask the user if more than one repository is
    plausible. Prefer an absolute path.
