@@ -15,6 +15,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { onTestFinished, test } from 'vitest';
+import { supportedAgentNames } from '../adapter-registry.js';
 
 const packageRoot = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 const cli = join(packageRoot, 'bin', 'harnessmith.mjs');
@@ -247,15 +248,7 @@ test('dry-run reports destinations without creating agent homes', () => {
   onTestFinished(() => rmSync(root, { recursive: true, force: true }));
   mkdirSync(join(root, 'project'));
   const output = execute(root, ['--agent', 'all', '--project', join(root, 'project'), '--dry-run']);
-  for (const adapter of [
-    'codex',
-    'cursor',
-    'claude',
-    'opencode',
-    'kimi',
-    'deepseek',
-    'workbuddy',
-  ]) {
+  for (const adapter of supportedAgentNames) {
     assert.match(output, new RegExp(`"adapter":"${adapter}"`));
   }
   assert.match(output, /"action":"create"/);
@@ -284,7 +277,7 @@ test('json mode emits parseable automation output without terminal decoration', 
     .map((line) => JSON.parse(line));
   assert.deepEqual(
     plans.map(({ adapter }) => adapter),
-    ['codex', 'cursor', 'claude', 'opencode', 'kimi', 'deepseek', 'workbuddy'],
+    [...supportedAgentNames],
   );
   assert.equal(plans[0].capabilities.scope, 'global');
   assert.equal(plans[1].capabilities.scope, 'project');
